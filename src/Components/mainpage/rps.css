@@ -223,12 +223,15 @@
     width: 90px;
     border: 7px solid rgb(86, 109, 227);
     border-radius: 50%;
+    transition: all 150ms;
+    
     
 }
 #rock:hover{
     border: 8px solid rgb(44, 77, 247);
     height:90px;
     width: 90px;
+    transform: translate3d(0px ,-5px,0px);;
     cursor: pointer;
 }
 #paper{
@@ -236,12 +239,14 @@
     width: 90px;
     border: 6px solid rgb(234, 178, 81);
     border-radius: 50%;   
+    transition: all 150ms;
 }
 #paper:hover{
     border: 8px solid rgb(233, 155, 20);
     height:90px;
     width: 90px;
     cursor: pointer;
+    transform: translate3d(0px ,-5px,0px);;
 }
 
 #scissior{
@@ -249,12 +254,14 @@
     width: 90px;
     border: 7px solid rgb(218, 92, 115);
     border-radius: 50%; 
+    transition: all 150ms;
 }
 #scissior:hover{
     border: 8px solid rgb(215, 21, 57);
     height:90px;
     width: 90px;
     cursor: pointer;
+    transform: translate3d(0px ,-5px,0px);;
 }
 .btmBody{
     /* background-color: red; */
@@ -430,7 +437,22 @@ cursor:pointer;
     width: 100%;
 
 }
-
+.overlay{
+    position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.8);
+  z-index: 2;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 
 

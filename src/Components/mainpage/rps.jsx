@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Paper } from "../../icons/paper";
 import { Rock } from "../../icons/rock";
 import { Scissior } from "../../icons/scissior";
@@ -19,7 +19,7 @@ const Rps = () => {
   const [paper, setPaper] = useState(false);
   const [scissior, setScissior] = useState(false);
 
-  // const [cpuChoice, setCpuChoice] = useState(false);
+  
   const [cpuRock, setCpuRock] = useState(false);
   const [cpuPaper, setCpuPaper] = useState(false);
   const [cpuScissior, setCpuScissior] = useState(false);
@@ -30,6 +30,7 @@ const Rps = () => {
   const [winner, setWinner] = useState(false);
   const [winnerName, setWinnerName] = useState("");
   const [disable , setDisable] = useState(true)
+  const cpuWin = useRef()
 
   const ruleImage = () => {
     setShowRules(true);
@@ -41,7 +42,7 @@ const Rps = () => {
   const playerAction = (value, e) => {
     setShowChoice(true);
     var audio = document.getElementById("audio");
-    audio.play();
+    audio.play(); 
     // var cpuWin = document.getElementById('cpuWin')
   
 
@@ -126,28 +127,30 @@ const Rps = () => {
 
     // } while (playerScore || cpuScore ===5)
   };
+  
   useEffect(() => {
+    // cpuWin.current.play()
+    var audio = document.getElementById("audio");
+    
     if (playerScore === 5) {
       // alert("PLAYER WINN");
       setWinner(true);
       setWinnerName("PLAYER");
-      setPlayerScore(null);
-      setCpuScore(null);
       setDisable(false)
+      audio.play();
+      
       
       return;
     } else if (cpuScore === 5) {
       // alert("CPU WON");
       setWinner(true);
       setWinnerName("CPU");
-      setPlayerScore(null);
-      setCpuScore(null);
       setDisable(false)
-      
+      audio.play();
       // let playerWin = document.getElementById('cpuWin')
       // playerWin.play()
 
-
+      
       return;
 
     } 
@@ -206,10 +209,11 @@ const Rps = () => {
           {disable===true? <>
               <div className="list">
                 <button id="rock" onClick={() => playerAction(0)}>
-                  <Rock />
+                   <Rock />
                   <audio
                     id="audio"
                     src="https://assets.mixkit.co/sfx/preview/mixkit-player-jumping-in-a-video-game-2043.mp3"
+                    
                   ></audio>
                 </button>
               </div>
@@ -232,9 +236,10 @@ const Rps = () => {
               <div className="winner-name">
                 {winnerName} <br /> is the Winner !
                 <audio
-                    id="cpuWin"
+                    ref={cpuWin}
                     src="https://assets.mixkit.co/sfx/preview/mixkit-player-jumping-in-a-video-game-2043.mp3"
-                  ></audio>
+                    
+                  />
               </div>
               <div className="reset-btn">
                 <div className="reset-bttn">
@@ -312,7 +317,9 @@ const Rps = () => {
                   <div className="battleground">WELCOME !</div>
                 </>
               )}
-              <>
+              {
+                result !=='' &&
+                <>
                 <div className="box">
                   <div className="scoreInfo">
                     <div className="scoreCard">
@@ -321,6 +328,10 @@ const Rps = () => {
                   </div>
                 </div>
               </>
+
+
+              }
+              
             </div>
           )}
 
@@ -369,7 +380,9 @@ const Rps = () => {
         //     <img src={rules} alt="" />
         //   </span>
         // </div>
-        <div className="show-rule">
+        
+        <div className="overlay" onClick={()=>{setShowRules(false)}}>
+           <div className="show-rule">
           <div className="cancel-btn">
             <button onClick={() => setShowRules(false)}>
               <Cancel />
@@ -386,6 +399,9 @@ const Rps = () => {
             &#x2666;&nbsp; Scissors beats Paper.
           </div>
         </div>
+        </div>
+       
+        
       ) : null}
       <div className="footer"></div>
     </div>
